@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Silver Oak | Bengaluru</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <style>
+        /* --- 1. SETTINGS & COLORS --- */
+        :root {
+            --bg-color: #050505;
+            --glass-bg: rgba(20, 20, 20, 0.85);
+            --gold: #C6A87C;
+            --white: #F0F0F0;
+            --grey: #888888;
+            --font-head: 'Cinzel', serif;
+            --font-body: 'Montserrat', sans-serif;
+            --transition: all 0.4s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--white);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+        }
+
+        html { scroll-behavior: smooth; }
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+
+        /* --- 2. LUXURY NAVBAR --- */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 1.2rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; background: var(--glass-bg); backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo { font-family: var(--font-head); font-size: 1.4rem; font-weight: 600; letter-spacing: 2px; color: var(--white); }
+        
+        .nav-links { display: flex; gap: 3rem; }
+        .nav-links a { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--grey); position: relative; }
+        .nav-links a.active, .nav-links a:hover { color: var(--gold); }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0%; height: 1px; background: var(--gold); transition: var(--transition); }
+        .nav-links a.active::after, .nav-links a:hover::after { width: 100%; }
+
+        .btn-reserve {
+            padding: 0.8rem 1.8rem; background: transparent; border: 1px solid var(--gold);
+            color: var(--gold); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px;
+            cursor: pointer; transition: var(--transition);
+        }
+        .btn-reserve:hover { background: var(--gold); color: #000; }
+
+        /* --- 3. HERO SECTION --- */
+        .hero {
+            height: 100vh; width: 100%; position: relative;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=2071&auto=format&fit=crop');
+            background-size: cover; background-position: center; background-attachment: fixed;
+        }
+        .hero h1 { font-size: clamp(3rem, 6vw, 5rem); font-weight: 400; margin-bottom: 1rem; line-height: 1.1; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .hero p { font-size: 1.1rem; font-weight: 300; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; }
+        .scroll-indicator { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); animation: bounce 2s infinite; }
+
+        /* --- 4. SWIPER GALLERY (THE SPACES) --- */
+        .spaces-section { padding: 6rem 0; background: #0a0a0a; }
+        
+        .swiper {
+            width: 100%;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 300px;
+            height: 450px;
+            border-radius: 4px;
+            filter: brightness(0.5) grayscale(30%); /* Dark inactive slides */
+            transition: transform 1s ease, filter 1s ease; /* Matches JS speed */
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+            position: relative;
+        }
+
+        /* Active Slide Styling */
+        .swiper-slide-active {
+            filter: brightness(1) grayscale(0%);
+            transform: scale(1.15); /* Slightly larger */
+            z-index: 10;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+        }
+
+        .slide-content {
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0,0,0,1), transparent);
+            width: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.8s ease;
+        }
+
+        .swiper-slide-active .slide-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-content h3 { font-family: var(--font-head); font-size: 1.5rem; color: var(--gold); margin-bottom: 5px; }
+        .slide-content p { font-size: 0.8rem; color: var(--white); }
+
+        /* Pagination Dots */
+        .swiper-pagination-bullet { background: var(--grey); opacity: 0.5; }
+        .swiper-pagination-bullet-active { background: var(--gold); opacity: 1; }
+
+        /* --- 5. DYNAMIC MENU SECTION --- */
+        .menu-section { padding: 6rem 15%; background: #0f0f0f; border-top: 1px solid #222; }
+        
+        .menu-tabs { display: flex; justify-content: center; gap: 2rem; margin-bottom: 3rem; flex-wrap: wrap; }
+        .menu-tab { 
+            background: none; border: none; color: var(--grey); 
+            font-family: var(--font-head); font-size: 1rem; cursor: pointer; 
+            padding-bottom: 5px; transition: 0.3s;
+        }
+        .menu-tab.active-tab { color: var(--gold); border-bottom: 1px solid var(--gold); }
+
+        .menu-item {
+            display: flex; justify-content: space-between; align-items: baseline;
+            margin-bottom: 2.5rem; border-bottom: 1px solid #222; padding-bottom: 1rem; transition: 0.3s;
+            opacity: 0; animation: fadeIn 0.5s forwards;
+        }
+        .menu-item:hover { border-color: var(--gold); transform: translateX(10px); }
+        .item-details h4 { font-family: var(--font-head); font-size: 1.3rem; color: var(--white); margin-bottom: 0.3rem; }
+        .item-details p { font-size: 0.85rem; color: var(--grey); font-style: italic; }
+        .item-price { font-family: var(--font-head); color: var(--gold); font-size: 1.2rem; }
+
+        /* --- 6. LOCATION --- */
+        .location-section { padding: 6rem 5%; background: #050505; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; border-top: 1px solid #1a1a1a; }
+        .loc-text h2 { font-family: var(--font-head); font-size: 2.5rem; color: var(--gold); margin-bottom: 1.5rem; }
+        .loc-details { margin-bottom: 2rem; border-left: 1px solid var(--gold); padding-left: 1.5rem; }
+        .loc-details p { margin-bottom: 0.8rem; color: var(--grey); font-size: 0.95rem; line-height: 1.6; }
+        .loc-details strong { color: var(--white); font-weight: 500; }
+        .loc-details a { border-bottom: 1px dotted var(--grey); }
+        .loc-details a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+        
+        .btn-directions {
+            display: inline-block; padding: 1rem 2rem; background: var(--white); color: #000;
+            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; margin-top: 1rem;
+        }
+        .btn-directions:hover { background: var(--gold); }
+        
+        .map-wrapper { width: 100%; height: 450px; filter: grayscale(100%) invert(92%) contrast(83%); transition: 0.3s; }
+        .map-wrapper:hover { filter: grayscale(0%) invert(0%); }
+        iframe { width: 100%; height: 100%; border: 0; }
+
+        /* --- 7. FOOTER --- */
+        footer { background: #000000; padding: 4rem 5%; text-align: center; border-top: 1px solid #1a1a1a; }
+        .footer-logo { font-family: var(--font-head); font-size: 2rem; margin-bottom: 2rem; color: var(--gold); }
+        .footer-links a { margin: 0 15px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--grey); }
+        .footer-links a:hover { color: var(--white); }
+
+        /* Animation */
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-in { animation: fadeIn 1s forwards; opacity: 0; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .menu-section { padding: 6rem 5%; }
+            .hero h1 { font-size: 3rem; }
+            .location-section { grid-template-columns: 1fr; }
+            .map-wrapper { height: 300px; }
+            .swiper-slide { width: 70%; height: 350px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">SILVER OAK</div>
+        <ul class="nav-links">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#spaces">The Spaces</a></li>
+            <li><a href="#menu">Tariff & Menu</a></li>
+            <li><a href="#visit">Location</a></li>
+        </ul>
+        <button class="btn-reserve"><a href="reserve_table.html">Book Now</a></button>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content animate-in" style="animation-delay: 0.2s;">
+            <p>Welcome to</p>
+            <h1>THE SILVER OAK</h1>
+            <p style="font-size: 0.8rem; color: var(--white); border-top: 1px solid var(--gold); border-bottom: 1px solid var(--gold); display: inline-block; padding: 10px 20px;">
+                Heritage Stay & Artisanal Cuisine
+            </p>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down" style="color: var(--gold);"></i>
+        </div>
+    </section>
+
+    <section id="spaces" class="spaces-section">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h2 style="font-family: var(--font-head); color: var(--gold); font-size: 2.5rem;">The Estate</h2>
+            <p style="color: var(--grey); font-weight: 300; letter-spacing: 1px;">Swipe to explore our interiors</p>
+        </div>
+        
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                
+                <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop');">
+                    <div class="slide-content">
+                        <h3>The Presidential Suite</h3>
+                        <p>Colonial architecture with modern luxury.</p>
+                    </div>
+                </div>
+                <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1974&auto=format&fit=crop');">
+                    <div class="slide-content">
+                        <h3>The Dining Hall</h3>
+                        <p>Fine dining under crystal chandeliers.</p>
+                    </div>
+                </div>
+                <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=2071&auto=format&fit=crop');">
+                    <div class="slide-content">
+                        <h3>The Coffee Lounge</h3>
+                        <p>Artisanal brews in a relaxed setting.</p>
+                    </div>
+                </div>
+                <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=2070&auto=format&fit=crop');">
+                    <div class="slide-content">
+                        <h3>Private Terrace</h3>
+                        <p>Exclusive events under the stars.</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop');">
+                    <div class="slide-content">
+                        <h3>The Presidential Suite</h3>
+                        <p>Colonial architecture with modern luxury.</p>
+                    </div>
+                </div>
+                <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1974&auto=format&fit=crop');">
+                    <div class="slide-content">
+                        <h3>The Dining Hall</h3>
+                        <p>Fine dining under crystal chandeliers.</p>
+                    </div>
+                </div>
+                <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=2071&auto=format&fit=crop');">
+                    <div class="slide-content">
+                        <h3>The Coffee Lounge</h3>
+                        <p>Artisanal brews in a relaxed setting.</p>
+                    </div>
+                </div>
+                <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=2070&auto=format&fit=crop');">
+                    <div class="slide-content">
+                        <h3>Private Terrace</h3>
+                        <p>Exclusive events under the stars.</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+
+    <section id="menu" class="menu-section">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h2 style="font-family: var(--font-head); font-size: 2.5rem; color: var(--gold);">Tariff & Menu</h2>
+            <p style="color: var(--grey);">Curated selections for the discerning guest</p>
+        </div>
+
+        <div class="menu-tabs" id="menuTabs"></div>
+        <div id="menuContainer"></div>
+    </section>
+
+    <section id="visit" class="location-section">
+        <div class="loc-text">
+            <h2>Visit The Estate</h2>
+            <div class="loc-details">
+                <p><strong>ADDRESS</strong><br>12th Main Road, Indiranagar<br>Bengaluru, Karnataka 560008</p>
+                <br>
+                <p><strong>HOURS</strong><br>Mon - Sun: 8:00 AM - 11:00 PM</p>
+                <br>
+                <p><strong>CONTACT</strong><br>
+                    <a href="tel:+918045678900">+91 80 4567 8900</a><br>
+                    concierge@silveroak.com
+                </p>
+            </div>
+            <a href="https://goo.gl/maps/PlaceHolderLink" target="_blank" class="btn-directions">
+                Get Directions <i class="fas fa-arrow-right" style="margin-left: 10px;"></i>
+            </a>
+        </div>
+        
+        <div class="map-wrapper">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31103.07687989931!2d77.62568686641846!3d12.97800705668383!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae16a41976319f%3A0x7d2813df5d681222!2sIndiranagar%2C%20Bengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1689765432100!5m2!1sen!2sin" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-logo">THE SILVER OAK</div>
+        <div class="footer-links">
+            <a href="#">Instagram</a>
+            <a href="#">Facebook</a>
+            <a href="privacy.html">Privacy</a>
+        </div>
+        <p style="margin-top: 3rem; color: #444; font-size: 0.7rem;">© 2026 The Silver Oak. Bangalore, India.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+        // 1. INITIALIZE SWIPER (Infinite Loop & Manually Scrollable)
+        var swiper = new Swiper(".mySwiper", {
+            effect: "coverflow",
+            grabCursor: true,     // Enables click-and-drag manual swiping
+            centeredSlides: true,
+            slidesPerView: "auto",
+            loop: true,           // Enables infinite looping
+            speed: 1000,          // 1s transition (Slow & Cinematic)
+            
+            // --- NEW: Added for Manual Scrolling ---
+            keyboard: {
+                enabled: true,    // Allows scrolling with left/right arrow keys
+            },
+            mousewheel: {
+                forceToAxis: true, // Allows trackpad/mousewheel scrolling (forceToAxis prevents it from messing up vertical page scrolling)
+            },
+            // ---------------------------------------
+
+            coverflowEffect: {
+                rotate: 0,        
+                stretch: 0,
+                depth: 150,       
+                modifier: 1,
+                slideShadows: true,
+            },
+            
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false, // Keeps autoplaying after user manually scrolls
+            },
+            
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+                dynamicBullets: true,
+            },
+        });
+
+        // 2. DYNAMIC MENU DATA
+        const menuData = {
+            "Coffee": [
+                { name: "Ethiopian Yirgacheffe", price: "₹ 450", desc: "Floral notes, bergamot, medium roast, pour-over method." },
+                { name: "Blue Mountain Brew", price: "₹ 550", desc: "Mild, lack of bitterness, rich flavor profile." }
+            ],
+            "Dining": [
+                { name: "Avocado & Burrata Tartine", price: "₹ 520", desc: "Sourdough, heirloom tomatoes, balsamic glaze, basil oil." },
+                { name: "Truffle Mushroom Risotto", price: "₹ 650", desc: "Arborio rice, porcini mushrooms, parmesan crisp." }
+            ],
+            "Stay (Tariff)": [
+                { name: "Deluxe King Room", price: "₹ 8,500", desc: "Per Night. Includes breakfast and lounge access." },
+                { name: "The Presidential Suite", price: "₹ 15,000", desc: "Per Night. Jacuzzi, butler service, panoramic view." }
+            ]
+        };
+
+        const tabsContainer = document.getElementById('menuTabs');
+        const itemsContainer = document.getElementById('menuContainer');
+
+        function renderMenu(category) {
+            itemsContainer.innerHTML = '';
+            menuData[category].forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'menu-item';
+                div.innerHTML = `
+                    <div class="item-details">
+                        <h4>${item.name}</h4>
+                        <p>${item.desc}</p>
+                    </div>
+                    <div class="item-price">${item.price}</div>
+                `;
+                itemsContainer.appendChild(div);
+            });
+        }
+
+        Object.keys(menuData).forEach((cat, index) => {
+            const btn = document.createElement('button');
+            btn.className = `menu-tab ${index === 0 ? 'active-tab' : ''}`;
+            btn.innerText = cat;
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.menu-tab').forEach(b => b.classList.remove('active-tab'));
+                btn.classList.add('active-tab');
+                renderMenu(cat);
+            });
+            tabsContainer.appendChild(btn);
+        });
+
+        renderMenu(Object.keys(menuData)[0]);
+
+        // 3. FADE ANIMATION
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+        document.querySelectorAll('.loc-text, .map-wrapper').forEach((el) => {
+            el.style.opacity = 0; el.style.transform = 'translateY(20px)'; el.style.transition = 'all 0.6s ease-out';
+            fadeObserver.observe(el);
+        });
+
+        // 4. SCROLL SPY
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            let current = '';
+            sections.forEach(section => {
+                if (pageYOffset >= (section.offsetTop - 150)) { current = section.getAttribute('id'); }
+            });
+            navLinks.forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('href').includes(current)) { a.classList.add('active'); }
+            });
+        });
+    </script>
+</body>
+</html>

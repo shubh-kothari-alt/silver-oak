@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disclaimer & Privacy | Portfolio Demo</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- SETTINGS & COLORS (Matched to original) --- */
+        :root {
+            --bg-color: #050505;
+            --glass-bg: rgba(20, 20, 20, 0.85);
+            --gold: #C6A87C;
+            --white: #F0F0F0;
+            --grey: #888888;
+            --font-head: 'Cinzel', serif;
+            --font-body: 'Montserrat', sans-serif;
+            --transition: all 0.4s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--white);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+
+        /* --- LUXURY NAVBAR --- */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 1.2rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; background: var(--glass-bg); backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo { font-family: var(--font-head); font-size: 1.4rem; font-weight: 600; letter-spacing: 2px; color: var(--white); }
+        
+        .nav-links { display: flex; gap: 3rem; }
+        .nav-links a { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--grey); position: relative; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0%; height: 1px; background: var(--gold); transition: var(--transition); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .btn-reserve {
+            padding: 0.8rem 1.8rem; background: transparent; border: 1px solid var(--gold);
+            color: var(--gold); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px;
+            cursor: pointer; transition: var(--transition);
+        }
+        .btn-reserve:hover { background: var(--gold); color: #000; }
+
+        /* --- DISCLAIMER CONTENT --- */
+        .page-header {
+            margin-top: 120px;
+            text-align: center;
+            padding: 4rem 5%;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .page-header h1 {
+            font-family: var(--font-head);
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            color: var(--grey);
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .content-section {
+            flex: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 5%;
+        }
+
+        .content-block {
+            margin-bottom: 3rem;
+            background: #0a0a0a;
+            padding: 2.5rem;
+            border-left: 2px solid var(--gold);
+            border-radius: 4px;
+        }
+
+        .content-block h2 {
+            font-family: var(--font-head);
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+        }
+
+        .content-block p {
+            color: var(--grey);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .urgent-notice {
+            border-color: #ff4444;
+            background: rgba(255, 68, 68, 0.05);
+        }
+
+        .urgent-notice h2 {
+            color: #ff4444;
+        }
+
+        /* --- FOOTER --- */
+        footer { background: #000000; padding: 4rem 5%; text-align: center; border-top: 1px solid #1a1a1a; margin-top: auto; }
+        .footer-logo { font-family: var(--font-head); font-size: 2rem; margin-bottom: 2rem; color: var(--gold); }
+        .footer-links a { margin: 0 15px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--grey); }
+        .footer-links a:hover { color: var(--white); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .content-block { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">PORTFOLIO DEMO</div>
+        <ul class="nav-links">
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="index.html#spaces">The Spaces</a></li>
+            <li><a href="index.html#menu">Tariff & Menu</a></li>
+            <li><a href="index.html#visit">Location</a></li>
+        </ul>
+        <button class="btn-reserve"><a href="index.html">Back to Demo</a></button>
+    </nav>
+
+    <!-- HEADER -->
+    <header class="page-header">
+        <h1>Legal Disclaimer</h1>
+        <p>Portfolio Showcase & Privacy Notice</p>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="content-section">
+        
+        <div class="content-block">
+            <h2>1. Not the Official Website</h2>
+            <p>Please note that this website is a <strong>conceptual prototype and portfolio demonstration</strong>. It is entirely unofficial and is in no way affiliated with, authorized, maintained, sponsored, or endorsed by The Silver Oak cafe, estate, or its parent companies in Bengaluru or anywhere else.</p>
+            <p>This design was initially created as a pitch for the establishment, but they declined the design and chose not to use this website. It is hosted here strictly to showcase my personal web development, UI/UX design, and coding capabilities to prospective employers and clients.</p>
+        </div>
+
+        <div class="content-block urgent-notice">
+            <h2>2. Legal Notice & Request</h2>
+            <p><strong>To the owners, management, or legal representatives of The Silver Oak:</strong></p>
+            <p>Please do not sue me. I absolutely do not want any legal trouble. No business is being conducted through this webpage, no money is being made, no actual reservations are being processed, and no customer data is being collected.</p>
+            <p>There is zero intention of copyright infringement, brand dilution, or impersonation. If the presence of this portfolio piece is an issue, please contact me directly, and I will take this domain/page down immediately without any hesitation.</p>
+        </div>
+
+        <div class="content-block">
+            <h2>3. Privacy & Data Collection</h2>
+            <p>Because this is a static, mock-up website designed for a portfolio, <strong>no personal data is collected, stored, or processed</strong>. Any buttons prompting to "Book Now" or "Reserve a Table" are inactive visual placeholders and do not connect to any real backend database.</p>
+            <p>No cookies are used on this site for tracking or advertising purposes.</p>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-logo">WEB DEV PORTFOLIO</div>
+        <div class="footer-links">
+            <a href="index.html">Return to Project</a>
+        </div>
+        <p style="margin-top: 3rem; color: #444; font-size: 0.7rem;">Created for demonstration purposes only. Not for commercial use.</p>
+    </footer>
+
+</body>
+</html>
